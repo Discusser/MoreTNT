@@ -80,7 +80,7 @@ public class LavaExplosion extends BaseExplosion {
 
                             Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this,
                                     this.level, blockpos, blockstate, fluidstate);
-                            if (optional.isPresent()) {
+                            if (optional.isPresent() && !(fluidstate.is(Fluids.LAVA) || fluidstate.is(Fluids.FLOWING_LAVA))) {
                                 f -= (optional.get() + 0.3F) * 0.3F;
                             }
 

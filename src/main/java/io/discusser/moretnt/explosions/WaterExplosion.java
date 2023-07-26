@@ -20,6 +20,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class WaterExplosion extends BaseExplosion {
 
                             Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this,
                                     this.level, blockpos, blockstate, fluidstate);
-                            if (optional.isPresent()) {
+                            if (optional.isPresent() && !(fluidstate.is(Fluids.WATER) || fluidstate.is(Fluids.FLOWING_WATER))) {
                                 f -= (optional.get() + 0.3F) * 0.3F;
                             }
 
