@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:snow_block"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "###",
+    "#T#",
+    "###"
+  ],
+  "result": {
+    "item": "moretnt:snow_tnt"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:water_bucket"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "###",
+    "#T#",
+    "###"
+  ],
+  "result": {
+    "item": "moretnt:water_tnt"
+  }
+}

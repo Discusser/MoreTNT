@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#T#",
+    " # "
+  ],
+  "result": {
+    "item": "moretnt:negative_tnt"
+  }
+}

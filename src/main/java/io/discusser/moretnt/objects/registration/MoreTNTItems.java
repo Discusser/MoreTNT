@@ -35,6 +35,10 @@ public class MoreTNTItems {
     public static final RegistryObject<MoreTNTBaseBlockItem> FIRE_TNT = registerBlockItem("fire_tnt",
             MoreTNTBlocks.FIRE_TNT);
 
+    // Crafting ingredients
+    public static final RegistryObject<MoreTNTBaseBlockItem> COMPRESSED_SAND = registerBlockItem("compressed_sand",
+            MoreTNTBlocks.COMPRESSED_SAND);
+
     // Shorthands for registering items
     private static RegistryObject<MoreTNTBaseItem> registerItem(String name) {
         return ITEMS.register(name, MoreTNTBaseItem::new);

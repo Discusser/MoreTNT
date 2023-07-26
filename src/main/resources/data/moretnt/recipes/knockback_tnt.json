@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:feather"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "###",
+    "#T#",
+    "###"
+  ],
+  "result": {
+    "item": "moretnt:knockback_tnt"
+  }
+}
