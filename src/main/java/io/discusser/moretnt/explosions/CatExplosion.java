@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cat;
@@ -109,7 +110,7 @@ public class CatExplosion extends BaseExplosion {
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles);
+        preFinalizeExplosion(pSpawnParticles, SoundEvents.CAT_PURREOW);
 
         int i = 0;
 

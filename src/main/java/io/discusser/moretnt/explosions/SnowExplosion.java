@@ -4,6 +4,8 @@ import com.google.common.collect.Sets;
 import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -118,7 +120,7 @@ public class SnowExplosion extends BaseExplosion {
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles);
+        preFinalizeExplosion(pSpawnParticles, SoundEvents.SNOW_BREAK);
 
         for (BlockPos blockPos : this.toBlow) {
             if (this.level instanceof ServerLevel level) {

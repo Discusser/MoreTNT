@@ -8,6 +8,7 @@ import io.discusser.moretnt.objects.entities.BasePrimedTNT;
 import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import io.discusser.moretnt.objects.registration.MoreTNTEntities;
 import io.discusser.moretnt.objects.registration.MoreTNTItems;
+import io.discusser.moretnt.objects.registration.MoreTNTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -57,6 +58,7 @@ public class MoreTNT {
         MoreTNTBlocks.BLOCKS.register(modEventBus);
         MoreTNTItems.ITEMS.register(modEventBus);
         MoreTNTEntities.ENTITY_TYPES.register(modEventBus);
+        MoreTNTSounds.SOUND_EVENTS.register(modEventBus);
 
         modEventBus.addListener(this::registerRenderers);
         modEventBus.addListener(this::commonSetup);

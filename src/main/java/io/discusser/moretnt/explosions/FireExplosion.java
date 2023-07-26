@@ -5,6 +5,7 @@ import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ExplosionDamageCalculator;
@@ -105,7 +106,7 @@ public class FireExplosion extends BaseExplosion {
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles);
+        preFinalizeExplosion(pSpawnParticles, SoundEvents.FIRECHARGE_USE);
 
         for (BlockPos blockPos : this.toBlow) {
             if (this.level instanceof ServerLevel level) {
