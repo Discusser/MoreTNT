@@ -1,0 +1,14 @@
+{
+  "block.moretnt.cat_tnt": "Cat TNT",
+  "block.moretnt.dome_tnt": "Dome TNT",
+  "block.moretnt.fire_tnt": "Fire TNT",
+  "block.moretnt.knockback_tnt": "Knockback TNT",
+  "block.moretnt.lava_tnt": "Lava TNT",
+  "block.moretnt.negative_tnt": "Negative TNT",
+  "block.moretnt.shuffle_tnt": "Shuffle TNT",
+  "block.moretnt.shuffle_tnt_4x": "Shuffle TNT 4x",
+  "block.moretnt.snow_tnt": "Snow TNT",
+  "block.moretnt.snow_tnt_4x": "Snow TNT 4x",
+  "block.moretnt.water_tnt": "Water TNT",
+  "itemGroup.moretnt_tab": "MoreTNT Items"
+}

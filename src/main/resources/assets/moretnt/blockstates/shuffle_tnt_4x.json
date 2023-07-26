@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "moretnt:block/shuffle_tnt_4x",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "moretnt:block/shuffle_tnt_4x"
+    },
+    "facing=south": {
+      "model": "moretnt:block/shuffle_tnt_4x",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "moretnt:block/shuffle_tnt_4x",
+      "y": 270
+    }
+  }
+}
