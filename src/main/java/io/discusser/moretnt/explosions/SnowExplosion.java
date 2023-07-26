@@ -86,10 +86,15 @@ public class SnowExplosion extends BaseExplosion {
 
                             if (f > 0.0F && this.damageCalculator.shouldBlockExplode(this, this.level, blockpos, blockstate, f)) {
                                 if (!MoreTNTBlocks.isTNT(blockstate)) {
+                                    // lots of random checks
                                     BlockState below = this.level.getBlockState(blockpos.below());
-                                    if ((blockstate.is(Blocks.SNOW) || !blockstate.getBlock().properties.hasCollision)
-                                            && blockstate.getMaterial().isReplaceable()
-                                            && below.getBlock().properties.hasCollision && !below.is(Blocks.SNOW)) {
+                                    int layers = blockstate.getOptionalValue(SnowLayerBlock.LAYERS).orElse(0);
+                                    boolean flag1 = blockstate.is(Blocks.SNOW) && layers != 8;
+                                    boolean flag2 = !below.is(Blocks.SNOW)
+                                            || blockstate.getOptionalValue(SnowLayerBlock.LAYERS).orElse(0) == 8;
+                                    boolean flag3 = below.getBlock().properties.hasCollision && blockstate.getMaterial().isReplaceable()
+                                            || layers == 1;
+                                    if (flag1 || (flag2 && flag3)) {
                                         set.add(blockpos);
                                     }
                                 }

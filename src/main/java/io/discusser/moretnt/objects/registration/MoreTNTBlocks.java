@@ -30,7 +30,7 @@ public class MoreTNTBlocks {
     public static final RegistryObject<CatTNTBlock> CAT_TNT = BLOCKS.register("cat_tnt",
             () -> new CatTNTBlock(4.0F, false));
     public static final RegistryObject<DomeTNTBlock> DOME_TNT = BLOCKS.register("dome_tnt",
-            () -> new DomeTNTBlock(4.0F, false));
+            () -> new DomeTNTBlock(5.0F, false));
     public static final RegistryObject<FireTNTBlock> FIRE_TNT = BLOCKS.register("fire_tnt",
             () -> new FireTNTBlock(4.0F, true));
 
