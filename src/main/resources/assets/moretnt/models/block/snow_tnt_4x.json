@@ -1,11 +1,9 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "moretnt:block/tnt_4x",
   "textures": {
     "bottom": "moretnt:block/snow_tnt_bottom",
     "side": "moretnt:block/snow_tnt_side",
-    "top": {
-      "layer0": "moretnt:block/snow_tnt_top",
-      "layer1": "moretnt:block/4x_overlay"
-    }
+    "top": "moretnt:block/snow_tnt_top",
+    "overlay_top": "moretnt:block/overlay/4x_overlay"
   }
 }

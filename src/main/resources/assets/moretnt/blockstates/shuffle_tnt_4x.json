@@ -5,7 +5,8 @@
       "y": 90
     },
     "facing=north": {
-      "model": "moretnt:block/shuffle_tnt_4x"
+      "model": "moretnt:block/shuffle_tnt_4x",
+      "y": 0
     },
     "facing=south": {
       "model": "moretnt:block/shuffle_tnt_4x",
