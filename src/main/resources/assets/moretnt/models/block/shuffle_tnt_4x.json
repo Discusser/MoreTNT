@@ -4,6 +4,7 @@
     "bottom": "moretnt:block/shuffle_tnt_bottom",
     "side": "moretnt:block/shuffle_tnt_side",
     "top": "moretnt:block/shuffle_tnt_top",
-    "overlay_top": "moretnt:block/overlay/4x_overlay"
+    "overlay_top": "moretnt:block/overlay/4x_overlay",
+    "particle": "moretnt:block/shuffle_tnt_side"
   }
 }
