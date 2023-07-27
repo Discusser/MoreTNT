@@ -1,10 +1,13 @@
 package io.discusser.moretnt.objects.blocks;
 
+import io.discusser.moretnt.network.ClientboundEntityFacingPacket;
+import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Explosion;
@@ -19,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +48,7 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
         if (!world.isClientSide) {
             BasePrimedTNT tnt = this.createPrimed(world, pos, this.size, this.fire);
             world.addFreshEntity(tnt);
+            sendEntityFacingPacket(tnt);
             world.playSound(null, tnt.getX(), tnt.getY(), tnt.getZ(), SoundEvents.TNT_PRIMED,
                     SoundSource.BLOCKS, 1.0F, 1.0F);
             world.gameEvent(igniter, GameEvent.PRIME_FUSE, pos);
@@ -51,13 +56,25 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
     }
 
     @Override
-    public void wasExploded(Level pLevel, @NotNull BlockPos pPos, @NotNull Explosion pExplosion) {
-        if (!pLevel.isClientSide) {
-            BasePrimedTNT tnt = this.createPrimed(pLevel, pPos, this.size, this.fire);
+    public void onBlockExploded(BlockState state, Level level, BlockPos pos, Explosion explosion) {
+        if (!level.isClientSide) {
+            BasePrimedTNT tnt = this.createPrimed(level, pos, this.size, this.fire);
             int i = tnt.getFuse();
-            tnt.setFuse((short)(pLevel.random.nextInt(i / 4) + i / 8));
-            pLevel.addFreshEntity(tnt);
+            tnt.setFuse((short)(level.random.nextInt(i / 4) + i / 8));
+            level.addFreshEntity(tnt);
+            sendEntityFacingPacket(tnt);
         }
+
+        super.onBlockExploded(state, level, pos, explosion);
+    }
+
+    @Override
+    public void wasExploded(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Explosion pExplosion) {
+    }
+
+    public void sendEntityFacingPacket(BasePrimedTNT entity) {
+        ClientboundEntityFacingPacket packet = new ClientboundEntityFacingPacket(entity.getId(), entity.facing);
+        MoreTNTPacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), packet);
     }
 
     @Nullable

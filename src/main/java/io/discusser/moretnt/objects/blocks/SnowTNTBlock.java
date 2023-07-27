@@ -26,6 +26,7 @@ public class SnowTNTBlock extends BaseTNTBlock {
 
     @Override
     public BasePrimedTNT createPrimed(Level level, BlockPos blockPos, float size, boolean fire) {
-        return new PrimedSnowTNT(level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, size, fire);
+        return new PrimedSnowTNT(level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, size, fire,
+                level.getBlockState(blockPos).getOptionalValue(BaseTNTBlock.FACING).orElse(BasePrimedTNT.DEFAULT_DIRECTION));
     }
 }

@@ -2,6 +2,7 @@ package io.discusser.moretnt;
 
 import com.mojang.logging.LogUtils;
 import io.discusser.moretnt.client.renderers.BaseTNTRenderer;
+import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.MoreTNTObject;
 import io.discusser.moretnt.objects.blocks.BaseTNTBlock;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
@@ -89,6 +90,8 @@ public class MoreTNT {
             DispenserBlock.registerBehavior(object.item().get(),
                     this.dispenserExecute((level, blockPos) -> block.createPrimed(level, blockPos, block.size, block.fire)));
         }
+
+        MoreTNTPacketHandler.register();
     }
 
     public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

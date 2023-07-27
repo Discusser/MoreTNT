@@ -38,24 +38,11 @@ public class BaseExplosion extends Explosion {
     public final ObjectArrayList<BlockPos> toBlow = new ObjectArrayList<>();
     public final Map<Player, Vec3> hitPlayers = Maps.newHashMap();
     public final List<BlockPos> neighborTnt = new ArrayList<>();
-
-
-    public BaseExplosion(Level pLevel, @javax.annotation.Nullable Entity pSource, double pToBlowX, double pToBlowY,
-                             double pToBlowZ, float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction,
-                             List<BlockPos> pPositions) {
-        this(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
-        this.toBlow.addAll(pPositions);
-    }
-
-    public BaseExplosion(Level pLevel, @javax.annotation.Nullable Entity pSource, double pToBlowX, double pToBlowY,
-                             double pToBlowZ, float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction) {
-        this(pLevel, pSource, null, null, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire,
-                pBlockInteraction);
-    }
+    public final SoundEvent soundEvent;
 
     public BaseExplosion(Level pLevel, @Nullable Entity pSource, @Nullable DamageSource pDamageSource,
              @Nullable ExplosionDamageCalculator pDamageCalculator, double pToBlowX, double pToBlowY, double pToBlowZ,
-                         float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction) {
+                         float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction, SoundEvent soundEvent) {
         super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
         this.level = pLevel;
         this.source = pSource;
@@ -66,6 +53,7 @@ public class BaseExplosion extends Explosion {
         this.fire = pFire;
         this.blockInteraction = pBlockInteraction;
         this.damageCalculator = pDamageCalculator == null ? this.makeDamageCalculator(pSource) : pDamageCalculator;
+        this.soundEvent = soundEvent;
     }
 
     public ExplosionDamageCalculator makeDamageCalculator(@Nullable Entity pEntity) {
@@ -96,5 +84,11 @@ public class BaseExplosion extends Explosion {
                 level.getBlockState(blockpos).onBlockExploded(this.level, blockpos, this);
             }
         }
+    }
+
+    @Override
+    public void finalizeExplosion(boolean pSpawnParticles) {
+        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
+        postFinalizeExplosion();
     }
 }

@@ -5,6 +5,7 @@ import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import io.discusser.moretnt.objects.registration.MoreTNTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,24 +30,13 @@ import java.util.Set;
 public class NegativeExplosion extends BaseExplosion {
     public List<BlockPos> blocksToPlace = new ArrayList<>();
 
-    public NegativeExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                             double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                             BlockInteraction pBlockInteraction, List<BlockPos> pPositions) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction, pPositions);
-    }
-
-    public NegativeExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                             double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                             BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
-    }
-
     public NegativeExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource,
                              @org.jetbrains.annotations.Nullable DamageSource pDamageSource,
                              @org.jetbrains.annotations.Nullable ExplosionDamageCalculator pDamageCalculator,
                              double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                             BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
+                             BlockInteraction pBlockInteraction, SoundEvent soundEvent) {
+        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire,
+                pBlockInteraction, soundEvent);
     }
 
     @Override
@@ -158,7 +148,7 @@ public class NegativeExplosion extends BaseExplosion {
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, MoreTNTSounds.GENERIC_EXPLODE_REVERSED.get());
+        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
 
         int i = 0;
 

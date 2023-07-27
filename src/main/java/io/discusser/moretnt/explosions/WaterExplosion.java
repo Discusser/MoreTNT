@@ -32,24 +32,13 @@ import java.util.Set;
 public class WaterExplosion extends BaseExplosion {
     public final List<BlockPos> sources = new ArrayList<>();
 
-    public WaterExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                            double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                            BlockInteraction pBlockInteraction, List<BlockPos> pPositions) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction, pPositions);
-    }
-
-    public WaterExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                            double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                            BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
-    }
-
     public WaterExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource,
                             @org.jetbrains.annotations.Nullable DamageSource pDamageSource,
                             @org.jetbrains.annotations.Nullable ExplosionDamageCalculator pDamageCalculator,
                             double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                            BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
+                            BlockInteraction pBlockInteraction, SoundEvent soundEvent) {
+        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire,
+                pBlockInteraction, soundEvent);
     }
 
     @Override
@@ -111,11 +100,15 @@ public class WaterExplosion extends BaseExplosion {
         }
 
         this.toBlow.addAll(set);
+
+        float f2 = this.radius * 2.0F;
+        List<Entity> list = new ArrayList<>();
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
     }
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, SoundEvents.BUCKET_EMPTY);
+        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
 
         for (BlockPos pos : this.sources) {
             if (this.level instanceof ServerLevel level) {

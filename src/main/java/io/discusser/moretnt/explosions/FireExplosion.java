@@ -5,9 +5,11 @@ import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -18,29 +20,18 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 public class FireExplosion extends BaseExplosion {
-    public FireExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                         double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                         BlockInteraction pBlockInteraction, List<BlockPos> pPositions) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction, pPositions);
-    }
-
-    public FireExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                         double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                         BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
-    }
-
-    public FireExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource,
-                         @org.jetbrains.annotations.Nullable DamageSource pDamageSource,
-                         @org.jetbrains.annotations.Nullable ExplosionDamageCalculator pDamageCalculator,
-                         double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                         BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
+    public FireExplosion(Level pLevel, @Nullable Entity pSource, @Nullable DamageSource pDamageSource,
+                         @Nullable ExplosionDamageCalculator pDamageCalculator, double pToBlowX, double pToBlowY, double pToBlowZ,
+                         float pRadius, boolean pFire, Explosion.BlockInteraction pBlockInteraction, SoundEvent soundEvent) {
+        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire,
+                pBlockInteraction, soundEvent);
     }
 
     @Override
@@ -102,11 +93,15 @@ public class FireExplosion extends BaseExplosion {
         }
 
         this.toBlow.addAll(set);
+
+        float f2 = this.radius * 2.0F;
+        List<Entity> list = new ArrayList<>();
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
     }
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, SoundEvents.FIRECHARGE_USE);
+        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
 
         for (BlockPos blockPos : this.toBlow) {
             if (this.level instanceof ServerLevel level) {

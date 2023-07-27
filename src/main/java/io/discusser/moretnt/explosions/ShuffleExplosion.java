@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,24 +29,13 @@ import java.util.Set;
 public class ShuffleExplosion extends BaseExplosion {
     public final List<BlockPos> toSwap = new ArrayList<>();
 
-    public ShuffleExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                             double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                             BlockInteraction pBlockInteraction, List<BlockPos> pPositions) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction, pPositions);
-    }
-
-    public ShuffleExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource, double pToBlowX,
-                             double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                             BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
-    }
-
     public ShuffleExplosion(Level pLevel, @org.jetbrains.annotations.Nullable Entity pSource,
                              @org.jetbrains.annotations.Nullable DamageSource pDamageSource,
                              @org.jetbrains.annotations.Nullable ExplosionDamageCalculator pDamageCalculator,
                              double pToBlowX, double pToBlowY, double pToBlowZ, float pRadius, boolean pFire,
-                             BlockInteraction pBlockInteraction) {
-        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction);
+                             BlockInteraction pBlockInteraction, SoundEvent soundEvent) {
+        super(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire,
+                pBlockInteraction, soundEvent);
     }
 
     @Override
@@ -105,11 +95,15 @@ public class ShuffleExplosion extends BaseExplosion {
 
         this.toBlow.addAll(set);
         this.toSwap.addAll(set);
+
+        float f2 = this.radius * 2.0F;
+        List<Entity> list = new ArrayList<>();
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
     }
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, SoundEvents.CHORUS_FRUIT_TELEPORT);
+        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
 
         for (BlockPos pos : this.toBlow) {
             if (this.level instanceof ServerLevel level) {

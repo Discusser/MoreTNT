@@ -1,7 +1,9 @@
 package io.discusser.moretnt.objects.entities;
 
-import net.minecraft.world.level.Explosion;
+import io.discusser.moretnt.explosions.BaseExplosion;
+import net.minecraft.sounds.SoundEvent;
 
 public interface IPrimedTNT {
-    Explosion createExplosion(double x, double y, double z);
+    BaseExplosion createExplosion(double x, double y, double z);
+    SoundEvent getSound();
 }
