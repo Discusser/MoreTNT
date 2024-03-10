@@ -1,30 +1,16 @@
 package io.discusser.moretnt.explosions;
 
-import com.google.common.collect.Sets;
-import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.NaturalSpawner;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.EntityPositionSource;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class CatExplosion extends BaseExplosion {
@@ -38,68 +24,11 @@ public class CatExplosion extends BaseExplosion {
     }
 
     @Override
-    public void explode() {
-        this.level.gameEvent(this.source, GameEvent.EXPLODE, new Vec3(this.x, this.y, this.z));
-        Set<BlockPos> set = Sets.newHashSet();
-
-        for (int j = 0; j < 16; ++j) {
-            for (int k = 0; k < 16; ++k) {
-                for (int l = 0; l < 16; ++l) {
-                    if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
-                        double d0 = (float) j / 15.0F * 2.0F - 1.0F;
-                        double d1 = (float) k / 15.0F * 2.0F - 1.0F;
-                        double d2 = (float) l / 15.0F * 2.0F - 1.0F;
-                        double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-                        d0 /= d3;
-                        d1 /= d3;
-                        d2 /= d3;
-                        float f = this.radius * (0.7F + this.level.random.nextFloat() * 0.6F);
-                        double d4 = this.x;
-                        double d6 = this.y;
-                        double d8 = this.z;
-
-                        for (; f > 0.0F; f -= 0.22500001F) {
-                            BlockPos blockpos = BlockPos.containing(d4, d6, d8);
-                            BlockState blockstate = this.level.getBlockState(blockpos);
-                            FluidState fluidstate = this.level.getFluidState(blockpos);
-                            if (!this.level.isInWorldBounds(blockpos)) {
-                                break;
-                            }
-
-                            Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this,
-                                    this.level, blockpos, blockstate, fluidstate);
-                            if (optional.isPresent()) {
-                                f -= (optional.get() + 0.3F) * 0.3F;
-                            }
-
-                            if (f > 0.0F && this.damageCalculator.shouldBlockExplode(this, this.level, blockpos,
-                                    blockstate, f)) {
-                                if (!MoreTNTBlocks.isTNT(blockstate)) {
-                                    if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.ON_GROUND, this.level,
-                                            blockpos, EntityType.CAT)) {
-                                        set.add(blockpos);
-                                    }
-                                }
-                            }
-
-                            if (MoreTNTBlocks.isTNT(blockstate)) {
-                                neighborTnt.add(blockpos);
-                            }
-
-                            d4 += d0 * (double) 0.3F;
-                            d6 += d1 * (double) 0.3F;
-                            d8 += d2 * (double) 0.3F;
-                        }
-                    }
-                }
-            }
+    void onBlockExploded(Set<BlockPos> set, BlockPos blockpos, int j, int k, int l) {
+        if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.NO_RESTRICTIONS, this.level,
+                blockpos, EntityType.CAT)) {
+            set.add(blockpos);
         }
-
-        this.toBlow.addAll(set);
-
-        float f2 = this.radius * 2.0F;
-        List<Entity> list = new ArrayList<>();
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
     }
 
     @Override
@@ -109,7 +38,7 @@ public class CatExplosion extends BaseExplosion {
         int i = 0;
 
         for (BlockPos blockPos : this.toBlow) {
-            if (this.level instanceof ServerLevel level) {
+            if (this.level instanceof ServerLevel) {
                 if (i > 8) {
                     break;
                 }
@@ -122,13 +51,12 @@ public class CatExplosion extends BaseExplosion {
 
                 cat.moveTo(blockPos, 0.0F, 0.0F);
 
-                if (ForgeHooks.canEntitySpawn(cat, level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), null,
-                        MobSpawnType.NATURAL) != 0) {
+                if (!ForgeEventFactory.checkSpawnPosition(cat, (ServerLevel)level, MobSpawnType.SPAWN_EGG)) {
                     continue;
                 }
 
-                cat.finalizeSpawn(level, level.getCurrentDifficultyAt(blockPos), MobSpawnType.NATURAL, null, null);
-                level.addFreshEntityWithPassengers(cat);
+                cat.finalizeSpawn((ServerLevel)level, level.getCurrentDifficultyAt(blockPos), MobSpawnType.SPAWN_EGG, null, null);
+                ((ServerLevel)level).addFreshEntityWithPassengers(cat);
                 i++;
             }
         }

@@ -1,28 +1,20 @@
 package io.discusser.moretnt.explosions;
 
 import com.google.common.collect.Sets;
-import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fluids.IFluidBlock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class DomeExplosion extends BaseExplosion {
@@ -86,14 +78,14 @@ public class DomeExplosion extends BaseExplosion {
                         continue;
                     }
 
-                    set.add(new BlockPos(this.x + x, this.y + y, this.z + z));
-                    set.add(new BlockPos(this.x - x, this.y + y, this.z + z));
-                    set.add(new BlockPos(this.x + x, this.y - y, this.z + z));
-                    set.add(new BlockPos(this.x + x, this.y + y, this.z - z));
-                    set.add(new BlockPos(this.x - x, this.y - y, this.z + z));
-                    set.add(new BlockPos(this.x + x, this.y - y, this.z - z));
-                    set.add(new BlockPos(this.x - x, this.y + y, this.z - z));
-                    set.add(new BlockPos(this.x - x, this.y - y, this.z - z));
+                    set.add(BlockPos.containing(this.x + x, this.y + y, this.z + z));
+                    set.add(BlockPos.containing(this.x - x, this.y + y, this.z + z));
+                    set.add(BlockPos.containing(this.x + x, this.y - y, this.z + z));
+                    set.add(BlockPos.containing(this.x + x, this.y + y, this.z - z));
+                    set.add(BlockPos.containing(this.x - x, this.y - y, this.z + z));
+                    set.add(BlockPos.containing(this.x + x, this.y - y, this.z - z));
+                    set.add(BlockPos.containing(this.x - x, this.y + y, this.z - z));
+                    set.add(BlockPos.containing(this.x - x, this.y - y, this.z - z));
                 }
             }
         }
@@ -102,7 +94,7 @@ public class DomeExplosion extends BaseExplosion {
 
         float f2 = this.radius * 2.0F;
         List<Entity> list = new ArrayList<>();
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level(), this, list, f2);
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
     }
 
     @Override
@@ -110,10 +102,10 @@ public class DomeExplosion extends BaseExplosion {
         preFinalizeExplosion(pSpawnParticles, this.soundEvent);
 
         for (BlockPos blockPos : this.toBlow) {
-            if (this.level instanceof ServerLevel level) {
-                BlockState blockState = level.getBlockState(blockPos);
-                if (blockState.isAir() || blockState.getMaterial().isLiquid() || blockState.getMaterial().isReplaceable()) {
-                    level.setBlockAndUpdate(blockPos, Blocks.GLASS.defaultBlockState());
+            if (this.level instanceof ServerLevel) {
+                BlockState blockState = this.level.getBlockState(blockPos);
+                if (blockState.isAir() || !blockState.getFluidState().isEmpty() || blockState.canBeReplaced()) {
+                    this.level.setBlockAndUpdate(blockPos, Blocks.GLASS.defaultBlockState());
                 }
             }
         }
