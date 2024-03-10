@@ -3,11 +3,11 @@ package io.discusser.moretnt.objects.blocks;
 import io.discusser.moretnt.network.ClientboundEntityFacingPacket;
 import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Explosion;
@@ -19,9 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +31,7 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
     public boolean fire = true;
 
     public BaseTNTBlock() {
-        super(BlockBehaviour.Properties.of(Material.EXPLOSIVE).instabreak().sound(SoundType.GRASS));
+        super(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).sound(SoundType.GRASS).instabreak().sound(SoundType.GRASS));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
