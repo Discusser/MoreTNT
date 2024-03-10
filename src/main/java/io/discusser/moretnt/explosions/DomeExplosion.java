@@ -102,7 +102,7 @@ public class DomeExplosion extends BaseExplosion {
 
         float f2 = this.radius * 2.0F;
         List<Entity> list = new ArrayList<>();
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level(), this, list, f2);
     }
 
     @Override

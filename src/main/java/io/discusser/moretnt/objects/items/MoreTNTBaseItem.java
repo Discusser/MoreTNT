@@ -6,10 +6,10 @@ import net.minecraft.world.item.Item;
 
 public class MoreTNTBaseItem extends Item {
     public MoreTNTBaseItem(Properties pProperties) {
-        super(pProperties.tab(MoreTNT.TAB));
+        super(pProperties);
     }
 
     public MoreTNTBaseItem() {
-        super(new Item.Properties().tab(MoreTNT.TAB));
+        super(new Item.Properties());
     }
 }

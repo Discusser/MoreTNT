@@ -45,8 +45,8 @@ public class PrimedKnockbackTNT extends BasePrimedTNT {
 
     @Override
     public BaseExplosion createExplosion(double x, double y, double z) {
-        return new KnockbackExplosion(this.level, null, null, null, x, y, z, this.size,
-                this.fire, Explosion.BlockInteraction.BREAK, this.getSound());
+        return new KnockbackExplosion(this.level(), null, null, null, x, y, z, this.size,
+                this.fire, Explosion.BlockInteraction.DESTROY, this.getSound());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package io.discusser.moretnt.client.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import io.discusser.moretnt.objects.blocks.BaseTNTBlock;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class BaseTNTRenderer extends EntityRenderer<BasePrimedTNT> {
@@ -26,10 +25,9 @@ public class BaseTNTRenderer extends EntityRenderer<BasePrimedTNT> {
         this.block = block;
     }
 
-    public void render(BasePrimedTNT pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack,
-                       @NotNull MultiBufferSource pBuffer, int pPackedLight) {
-        pMatrixStack.pushPose();
-        pMatrixStack.translate(0.0D, 0.5D, 0.0D);
+    public void render(BasePrimedTNT pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
+        pPoseStack.pushPose();
+        pPoseStack.translate(0.0F, 0.5F, 0.0F);
         int i = pEntity.getFuse();
         if ((float) i - pPartialTicks + 1.0F < 10.0F) {
             float f = 1.0F - ((float) i - pPartialTicks + 1.0F) / 10.0F;
@@ -37,24 +35,19 @@ public class BaseTNTRenderer extends EntityRenderer<BasePrimedTNT> {
             f *= f;
             f *= f;
             float f1 = 1.0F + f * 0.3F;
-            pMatrixStack.scale(f1, f1, f1);
+            pPoseStack.scale(f1, f1, f1);
         }
 
-        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
-        pMatrixStack.translate(-0.5D, -0.5D, 0.5D);
-        pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-        TntMinecartRenderer.renderWhiteSolidBlock(this.blockRenderer,
-                block.defaultBlockState().setValue(BaseTNTBlock.FACING, pEntity.facing), pMatrixStack, pBuffer,
-                pPackedLight, i / 5 % 2 == 0);
-        pMatrixStack.popPose();
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
+        pPoseStack.translate(-0.5F, -0.5F, 0.5F);
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(90.0F));
+        TntMinecartRenderer.renderWhiteSolidBlock(this.blockRenderer, block.defaultBlockState().setValue(BaseTNTBlock.FACING, pEntity.facing), pPoseStack, pBuffer, pPackedLight, i / 5 % 2 == 0);
+        pPoseStack.popPose();
+        super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     * I don't know what this is supposed to return, I just copied this from the TNT renderer.
-     */
-    @SuppressWarnings("deprecation")
+    @Override
+    @Deprecated
     public @NotNull ResourceLocation getTextureLocation(@NotNull BasePrimedTNT pEntity) {
         return TextureAtlas.LOCATION_BLOCKS;
     }

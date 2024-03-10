@@ -13,6 +13,7 @@ import io.discusser.moretnt.objects.registration.MoreTNTSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
@@ -41,16 +42,9 @@ import java.util.function.BiFunction;
 public class MoreTNT {
     public static final String MODID = "moretnt";
     public static final Logger LOGGER = LogUtils.getLogger();
+    // Creative tab for various items
     public final List<MoreTNTObject> objects = new ArrayList<>();
     public final Map<EntityType<? extends BasePrimedTNT>, Block> toRender = new HashMap<>();
-
-    // Creative tab for various items
-    public static final CreativeModeTab TAB = new CreativeModeTab(MODID + "_tab") {
-        @Override
-        public @NotNull ItemStack makeIcon() {
-            return new ItemStack(MoreTNTItems.NEGATIVE_TNT.get());
-        }
-    };
 
     public MoreTNT() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

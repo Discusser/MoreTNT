@@ -4,12 +4,8 @@ import io.discusser.moretnt.MoreTNT;
 import io.discusser.moretnt.objects.blocks.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -41,8 +37,8 @@ public class MoreTNTBlocks {
             () -> new FireTNTBlock(4.0F, true));
 
     public static final RegistryObject<Block> COMPRESSED_SAND = BLOCKS.register("compressed_sand",
-            () -> new Block(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.SAND)
-                    .strength(2.0F).sound(SoundType.SAND).requiresCorrectToolForDrops()));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.SAND)
+                    .strength(2.0F).requiresCorrectToolForDrops()));
 
 
     public static boolean isTNT(BlockState blockState) {

@@ -52,8 +52,8 @@ public abstract class BasePrimedTNT extends PrimedTnt implements IPrimedTNT {
 
     // Override with your own Explosion class
 //    public Explosion createExplosion(double x, double y, double z) {
-//        return new Explosion(this.level, null, null, null, x, y, z, this.size, this.fire,
-//                Explosion.BlockInteraction.BREAK);
+//        return new Explosion(this.level(), null, null, null, x, y, z, this.size, this.fire,
+//                Explosion.BlockInteraction.DESTROY);
 //    }
 
     @Override
@@ -64,14 +64,14 @@ public abstract class BasePrimedTNT extends PrimedTnt implements IPrimedTNT {
 
         BaseExplosion explosion = this.createExplosion(pX, pY, pZ);
 
-        if (ForgeEventFactory.onExplosionStart(this.level, explosion)) {
+        if (ForgeEventFactory.onExplosionStart(this.level(), explosion)) {
             return;
         }
 
         explosion.explode();
         explosion.finalizeExplosion(true);
 
-        if (this.level instanceof ServerLevel level) {
+        if (this.level() instanceof ServerLevel level) {
             for (ServerPlayer serverplayer : level.players()) {
                 if (serverplayer.distanceToSqr(pX, pY, pZ) < 4096.0D) {
                     CustomClientboundExplodePacket packet = new CustomClientboundExplodePacket(pX, pY, pZ, this.size,

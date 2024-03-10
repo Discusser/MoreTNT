@@ -59,7 +59,7 @@ public class CatExplosion extends BaseExplosion {
                         double d8 = this.z;
 
                         for (; f > 0.0F; f -= 0.22500001F) {
-                            BlockPos blockpos = new BlockPos(d4, d6, d8);
+                            BlockPos blockpos = BlockPos.containing(d4, d6, d8);
                             BlockState blockstate = this.level.getBlockState(blockpos);
                             FluidState fluidstate = this.level.getFluidState(blockpos);
                             if (!this.level.isInWorldBounds(blockpos)) {

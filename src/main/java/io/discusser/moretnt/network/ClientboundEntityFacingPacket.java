@@ -37,7 +37,7 @@ public class ClientboundEntityFacingPacket {
             Player player = Minecraft.getInstance().player;
 
             if (player != null) {
-                Entity entity = player.level.getEntity(this.id);
+                Entity entity = player.level().getEntity(this.id);
                 if (entity instanceof BasePrimedTNT) {
                     ((BasePrimedTNT) entity).facing = this.facing;
                 }

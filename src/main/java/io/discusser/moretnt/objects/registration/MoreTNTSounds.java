@@ -14,6 +14,6 @@ public class MoreTNTSounds {
     public static final RegistryObject<SoundEvent> GENERIC_EXPLODE_REVERSED = registerSoundEvent("generic_explode_reversed");
 
     public static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(MoreTNT.MODID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(MoreTNT.MODID, name)));
     }
 }

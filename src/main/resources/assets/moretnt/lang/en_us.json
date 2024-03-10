@@ -11,6 +11,6 @@
   "block.moretnt.snow_tnt": "Snow TNT",
   "block.moretnt.snow_tnt_4x": "Snow TNT 4x",
   "block.moretnt.water_tnt": "Water TNT",
-  "itemGroup.moretnt_tab": "MoreTNT Items",
+  "itemGroup.moretnt.items": "MoreTNT Items",
   "sounds.moretnt.generic_explode_reversed": "Reversed Explosion"
 }

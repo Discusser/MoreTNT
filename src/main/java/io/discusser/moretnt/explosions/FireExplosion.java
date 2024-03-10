@@ -64,12 +64,12 @@ public class FireExplosion extends BaseExplosion {
                             }
 
                             Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this,
-                                    this.level, blockpos, blockstate, fluidstate);
+                                    this.level(), blockpos, blockstate, fluidstate);
                             if (optional.isPresent()) {
                                 f -= (optional.get() + 0.3F) * 0.3F;
                             }
 
-                            if (f > 0.0F && this.damageCalculator.shouldBlockExplode(this, this.level, blockpos, blockstate, f)) {
+                            if (f > 0.0F && this.damageCalculator.shouldBlockExplode(this, this.level(), blockpos, blockstate, f)) {
                                 if (!MoreTNTBlocks.isTNT(blockstate)) {
                                     BlockState below = this.level.getBlockState(blockpos.below());
                                     if (blockstate.isAir() && blockstate.getMaterial().isReplaceable()
@@ -96,7 +96,7 @@ public class FireExplosion extends BaseExplosion {
 
         float f2 = this.radius * 2.0F;
         List<Entity> list = new ArrayList<>();
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level(), this, list, f2);
     }
 
     @Override

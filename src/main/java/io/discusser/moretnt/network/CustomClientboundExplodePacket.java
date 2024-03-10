@@ -1,16 +1,13 @@
 package io.discusser.moretnt.network;
 
 import com.google.common.collect.Lists;
-import io.discusser.moretnt.MoreTNT;
 import io.discusser.moretnt.explosions.BaseExplosion;
-import io.discusser.moretnt.objects.entities.BasePrimedTNT;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3;
@@ -96,8 +93,8 @@ public class CustomClientboundExplodePacket {
 
             if (player != null) {
                 SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(this.resourceLocation);
-                BaseExplosion explosion = new BaseExplosion(player.level, null, null, null,
-                        this.x, this.y, this.z, this.power, false, Explosion.BlockInteraction.BREAK, sound);
+                BaseExplosion explosion = new BaseExplosion(player.level(), null, null, null,
+                        this.x, this.y, this.z, this.power, false, Explosion.BlockInteraction.DESTROY, sound);
                 explosion.finalizeExplosion(true);
                 player.setDeltaMovement(player.getDeltaMovement().add(knockbackX, knockbackY, knockbackZ));
             }

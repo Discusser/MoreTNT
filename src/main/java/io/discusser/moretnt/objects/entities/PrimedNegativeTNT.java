@@ -46,8 +46,8 @@ public class PrimedNegativeTNT extends BasePrimedTNT {
 
     @Override
     public BaseExplosion createExplosion(double x, double y, double z) {
-        return new NegativeExplosion(this.level, null, null, null, x, y, z, this.size,
-                this.fire, Explosion.BlockInteraction.BREAK, this.getSound());
+        return new NegativeExplosion(this.level(), null, null, null, x, y, z, this.size,
+                this.fire, Explosion.BlockInteraction.DESTROY, this.getSound());
     }
 
     @Override

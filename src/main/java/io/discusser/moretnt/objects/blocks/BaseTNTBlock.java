@@ -31,7 +31,7 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
     public boolean fire = true;
 
     public BaseTNTBlock() {
-        super(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).sound(SoundType.GRASS).instabreak().sound(SoundType.GRASS));
+        super(Blocks.TNT.properties);
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 

@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 
 public class MoreTNTBaseBlockItem extends BlockItem {
     public MoreTNTBaseBlockItem(Block pBlock, Properties pProperties) {
-        super(pBlock, pProperties.tab(MoreTNT.TAB));
+        super(pBlock, pProperties);
     }
 
     public MoreTNTBaseBlockItem(Block block) {

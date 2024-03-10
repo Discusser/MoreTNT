@@ -69,12 +69,12 @@ public class NegativeExplosion extends BaseExplosion {
                             }
 
                             Optional<Float> optional = this.damageCalculator.getBlockExplosionResistance(this,
-                                    this.level, blockpos, blockstate, fluidstate);
+                                    this.level(), blockpos, blockstate, fluidstate);
                             if (optional.isPresent()) {
                                 f -= (optional.get() + 0.3F) * 0.3F;
                             }
 
-                            if (f > 0.0F && this.damageCalculator.shouldBlockExplode(this, this.level, blockpos, blockstate, f)) {
+                            if (f > 0.0F && this.damageCalculator.shouldBlockExplode(this, this.level(), blockpos, blockstate, f)) {
                                 if (!blockstate.isAir() &&
                                         !MoreTNTBlocks.isTNT(blockstate)) {
                                     blocksToPlace.add(blockpos);
@@ -110,7 +110,7 @@ public class NegativeExplosion extends BaseExplosion {
         int j2 = Mth.floor(this.z - (double)f2 - 1.0D);
         int j1 = Mth.floor(this.z + (double)f2 + 1.0D);
         List<Entity> list = this.level.getEntities(this.source, new AABB(k1, i2, j2, l1, i1, j1));
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level(), this, list, f2);
         Vec3 vec3 = new Vec3(this.x, this.y, this.z);
 
         for (Entity entity : list) {
@@ -166,7 +166,7 @@ public class NegativeExplosion extends BaseExplosion {
 
         for (BlockPos blockpos : this.blocksToPlace) {
             if (this.level instanceof ServerLevel level) {
-                level.getBlockState(blockpos).onBlockExploded(this.level, blockpos, this);
+                level.getBlockState(blockpos).onBlockExploded(this.level(), blockpos, this);
             }
         }
 

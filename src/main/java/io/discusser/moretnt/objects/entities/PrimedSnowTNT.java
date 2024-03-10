@@ -42,8 +42,8 @@ public class PrimedSnowTNT extends BasePrimedTNT {
 
     @Override
     public BaseExplosion createExplosion(double x, double y, double z) {
-        return new SnowExplosion(this.level, null, null, null, x, y, z, this.size,
-                this.fire, Explosion.BlockInteraction.BREAK, this.getSound());
+        return new SnowExplosion(this.level(), null, null, null, x, y, z, this.size,
+                this.fire, Explosion.BlockInteraction.DESTROY, this.getSound());
     }
 
     @Override
