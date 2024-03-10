@@ -43,7 +43,7 @@ public class SnowExplosion extends BaseExplosion {
         preFinalizeExplosion(pSpawnParticles, this.soundEvent);
 
         for (BlockPos blockPos : this.toBlow) {
-            if (this.level instanceof ServerLevel level) {
+            if (this.level instanceof ServerLevel) {
                 BlockState blockState = level.getBlockState(blockPos);
                 int layers = this.level.random.nextInt(1, 3);
                 if (blockState.is(Blocks.SNOW)) {

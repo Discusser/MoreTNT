@@ -1,6 +1,5 @@
 package io.discusser.moretnt.explosions;
 
-import com.google.common.collect.Maps;
 import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.Util;
@@ -12,7 +11,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.EntityBasedExplosionDamageCalculator;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
@@ -25,7 +23,10 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.commons.compress.utils.Sets;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public class BaseExplosion extends Explosion {
     public static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR = new ExplosionDamageCalculator();
