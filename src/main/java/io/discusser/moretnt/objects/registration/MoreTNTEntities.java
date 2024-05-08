@@ -16,6 +16,8 @@ public class MoreTNTEntities {
             EntityType.Builder.<PrimedNegativeTNT>of(PrimedNegativeTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SHUFFLE_TNT = registerTNTEntity("shuffle_tnt",
             EntityType.Builder.<PrimedShuffleTNT>of(PrimedShuffleTNT::new, MobCategory.MISC));
+    public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SHUFFLE_TNT_4X = registerTNTEntity("shuffle_tnt_4x",
+            EntityType.Builder.<PrimedShuffleTNT>of(PrimedShuffleTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> KNOCKBACK_TNT = registerTNTEntity("knockback_tnt",
             EntityType.Builder.<PrimedKnockbackTNT>of(PrimedKnockbackTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> WATER_TNT = registerTNTEntity("water_tnt",
@@ -23,6 +25,8 @@ public class MoreTNTEntities {
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> LAVA_TNT = registerTNTEntity("lava_tnt",
             EntityType.Builder.<PrimedLavaTNT>of(PrimedLavaTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SNOW_TNT = registerTNTEntity("snow_tnt",
+            EntityType.Builder.<PrimedSnowTNT>of(PrimedSnowTNT::new, MobCategory.MISC));
+    public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SNOW_TNT_4X = registerTNTEntity("snow_tnt_4x",
             EntityType.Builder.<PrimedSnowTNT>of(PrimedSnowTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> CAT_TNT = registerTNTEntity("cat_tnt",
             EntityType.Builder.<PrimedCatTNT>of(PrimedCatTNT::new, MobCategory.MISC));

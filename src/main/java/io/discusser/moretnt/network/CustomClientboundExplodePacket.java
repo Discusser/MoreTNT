@@ -1,21 +1,14 @@
 package io.discusser.moretnt.network;
 
 import com.google.common.collect.Lists;
-import io.discusser.moretnt.MoreTNT;
-import io.discusser.moretnt.explosions.BaseExplosion;
-import io.discusser.moretnt.objects.entities.BasePrimedTNT;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -40,9 +33,9 @@ public class CustomClientboundExplodePacket {
         this.power = pPower;
         this.toBlow = Lists.newArrayList(pToBlow);
         if (pKnockback != null) {
-            this.knockbackX = (float)pKnockback.x;
-            this.knockbackY = (float)pKnockback.y;
-            this.knockbackZ = (float)pKnockback.z;
+            this.knockbackX = (float) pKnockback.x;
+            this.knockbackY = (float) pKnockback.y;
+            this.knockbackZ = (float) pKnockback.z;
         } else {
             this.knockbackX = 0.0F;
             this.knockbackY = 0.0F;
@@ -72,9 +65,9 @@ public class CustomClientboundExplodePacket {
      * Writes the raw packet data to the data stream.
      */
     public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeFloat((float)this.x);
-        pBuffer.writeFloat((float)this.y);
-        pBuffer.writeFloat((float)this.z);
+        pBuffer.writeFloat((float) this.x);
+        pBuffer.writeFloat((float) this.y);
+        pBuffer.writeFloat((float) this.z);
         pBuffer.writeFloat(this.power);
         pBuffer.writeCollection(this.toBlow, (buf, pos) -> {
             int x = pos.getX() - Mth.floor(this.x);
@@ -91,17 +84,8 @@ public class CustomClientboundExplodePacket {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        MoreTNTPacketHandler.enqueueToClient(ctx, () -> {
-            Player player = Minecraft.getInstance().player;
-
-            if (player != null) {
-                SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(this.resourceLocation);
-                BaseExplosion explosion = new BaseExplosion(player.level, null, null, null,
-                        this.x, this.y, this.z, this.power, false, Explosion.BlockInteraction.BREAK, sound);
-                explosion.finalizeExplosion(true);
-                player.setDeltaMovement(player.getDeltaMovement().add(knockbackX, knockbackY, knockbackZ));
-            }
-        });
+        ctx.get().enqueueWork(() ->
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CustomClientboundExplodePacketHandler.handle(this, ctx)));
         ctx.get().setPacketHandled(true);
     }
 }

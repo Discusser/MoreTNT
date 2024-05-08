@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Explosion;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.network.PacketDistributor;
@@ -74,7 +72,7 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
 
     public void sendEntityFacingPacket(BasePrimedTNT entity) {
         ClientboundEntityFacingPacket packet = new ClientboundEntityFacingPacket(entity.getId(), entity.facing);
-        MoreTNTPacketHandler.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), packet);
+        MoreTNTPacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> entity.level.getChunkAt(entity.chunkPosition().getWorldPosition())), packet);
     }
 
     @Nullable

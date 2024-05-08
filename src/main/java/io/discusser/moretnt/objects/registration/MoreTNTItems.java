@@ -2,7 +2,6 @@ package io.discusser.moretnt.objects.registration;
 
 import io.discusser.moretnt.MoreTNT;
 import io.discusser.moretnt.objects.items.MoreTNTBaseBlockItem;
-import io.discusser.moretnt.objects.items.MoreTNTBaseItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,13 +35,14 @@ public class MoreTNTItems {
             MoreTNTBlocks.FIRE_TNT);
 
     // Crafting ingredients
+    @SuppressWarnings("unused")
     public static final RegistryObject<MoreTNTBaseBlockItem> COMPRESSED_SAND = registerBlockItem("compressed_sand",
             MoreTNTBlocks.COMPRESSED_SAND);
 
     // Shorthands for registering items
-    private static RegistryObject<MoreTNTBaseItem> registerItem(String name) {
-        return ITEMS.register(name, MoreTNTBaseItem::new);
-    }
+//    private static RegistryObject<MoreTNTBaseItem> registerItem(String name) {
+//        return ITEMS.register(name, MoreTNTBaseItem::new);
+//    }
 
     private static RegistryObject<MoreTNTBaseBlockItem> registerBlockItem(String name,
                                                                           RegistryObject<? extends Block> block) {
