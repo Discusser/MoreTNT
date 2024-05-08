@@ -1,7 +1,6 @@
 package io.discusser.moretnt.network;
 
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
@@ -34,7 +33,7 @@ public class ClientboundEntityFacingPacket {
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         MoreTNTPacketHandler.enqueueToClient(ctx, () -> {
-            Player player = Minecraft.getInstance().player;
+            Player player = ctx.get().getSender();
 
             if (player != null) {
                 Entity entity = player.level().getEntity(this.id);

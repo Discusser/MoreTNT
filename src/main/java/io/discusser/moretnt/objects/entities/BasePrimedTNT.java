@@ -57,7 +57,6 @@ public class BasePrimedTNT extends PrimedTnt implements IPrimedTNT {
         double pX = this.getX();
         double pY = this.getY(0.0625);
         double pZ = this.getZ();
-
         BaseExplosion explosion = this.createExplosion(pX, pY, pZ);
 
         if (ForgeEventFactory.onExplosionStart(this.level(), explosion)) {

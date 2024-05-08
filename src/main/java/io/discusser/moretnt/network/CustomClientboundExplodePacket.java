@@ -2,7 +2,6 @@ package io.discusser.moretnt.network;
 
 import com.google.common.collect.Lists;
 import io.discusser.moretnt.explosions.BaseExplosion;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -89,7 +88,7 @@ public class CustomClientboundExplodePacket {
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         MoreTNTPacketHandler.enqueueToClient(ctx, () -> {
-            Player player = Minecraft.getInstance().player;
+            Player player = ctx.get().getSender();
 
             if (player != null) {
                 SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(this.resourceLocation);

@@ -1,7 +1,6 @@
 package io.discusser.moretnt;
 
 import com.mojang.logging.LogUtils;
-import io.discusser.moretnt.client.renderers.BaseTNTRenderer;
 import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.MoreTNTObject;
 import io.discusser.moretnt.objects.blocks.BaseTNTBlock;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -33,7 +31,7 @@ import java.util.function.BiFunction;
 public class MoreTNT {
     public static final String MODID = "moretnt";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public final List<MoreTNTObject> objects = new ArrayList<>();
+    public static final List<MoreTNTObject> objects = new ArrayList<>();
 
     public MoreTNT() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -45,7 +43,6 @@ public class MoreTNT {
         MoreTNTSounds.SOUND_EVENTS.register(modEventBus);
         MoreTNTTabs.TABS.register(modEventBus);
 
-        modEventBus.addListener(this::registerRenderers);
         modEventBus.addListener(this::commonSetup);
 
         addObjects();
@@ -55,21 +52,21 @@ public class MoreTNT {
     }
 
     public void addObjects() {
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT, MoreTNTEntities.NEGATIVE_TNT, MoreTNTItems.NEGATIVE_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT, MoreTNTEntities.SHUFFLE_TNT, MoreTNTItems.SHUFFLE_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT_4X, MoreTNTEntities.SHUFFLE_TNT_4X, MoreTNTItems.SHUFFLE_TNT_4X));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.KNOCKBACK_TNT, MoreTNTEntities.KNOCKBACK_TNT, MoreTNTItems.KNOCKBACK_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.WATER_TNT, MoreTNTEntities.WATER_TNT, MoreTNTItems.WATER_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.LAVA_TNT, MoreTNTEntities.LAVA_TNT, MoreTNTItems.LAVA_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.SNOW_TNT, MoreTNTEntities.SNOW_TNT, MoreTNTItems.SNOW_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.SNOW_TNT_4X, MoreTNTEntities.SNOW_TNT_4X, MoreTNTItems.SNOW_TNT_4X));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.CAT_TNT, MoreTNTEntities.CAT_TNT, MoreTNTItems.CAT_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.DOME_TNT, MoreTNTEntities.DOME_TNT, MoreTNTItems.DOME_TNT));
-        this.objects.add(new MoreTNTObject(MoreTNTBlocks.FIRE_TNT, MoreTNTEntities.FIRE_TNT, MoreTNTItems.FIRE_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT, MoreTNTEntities.NEGATIVE_TNT, MoreTNTItems.NEGATIVE_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT, MoreTNTEntities.SHUFFLE_TNT, MoreTNTItems.SHUFFLE_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT_4X, MoreTNTEntities.SHUFFLE_TNT_4X, MoreTNTItems.SHUFFLE_TNT_4X));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.KNOCKBACK_TNT, MoreTNTEntities.KNOCKBACK_TNT, MoreTNTItems.KNOCKBACK_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.WATER_TNT, MoreTNTEntities.WATER_TNT, MoreTNTItems.WATER_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.LAVA_TNT, MoreTNTEntities.LAVA_TNT, MoreTNTItems.LAVA_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.SNOW_TNT, MoreTNTEntities.SNOW_TNT, MoreTNTItems.SNOW_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.SNOW_TNT_4X, MoreTNTEntities.SNOW_TNT_4X, MoreTNTItems.SNOW_TNT_4X));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.CAT_TNT, MoreTNTEntities.CAT_TNT, MoreTNTItems.CAT_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.DOME_TNT, MoreTNTEntities.DOME_TNT, MoreTNTItems.DOME_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.FIRE_TNT, MoreTNTEntities.FIRE_TNT, MoreTNTItems.FIRE_TNT));
     }
 
     public void commonSetup(FMLCommonSetupEvent event) {
-        for (MoreTNTObject object : this.objects) {
+        for (MoreTNTObject object : objects) {
             BaseTNTBlock block = object.block().get();
             DispenserBlock.registerBehavior(object.item().get(),
                     this.dispenserExecute((level, blockPos) -> block.createPrimed(level, blockPos, block.size, block.fire)));
@@ -78,11 +75,6 @@ public class MoreTNT {
         MoreTNTPacketHandler.register();
     }
 
-    public void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        for (MoreTNTObject object : this.objects) {
-            event.registerEntityRenderer(object.entity().get(), pContext -> new BaseTNTRenderer(pContext, object.block().get()));
-        }
-    }
 
     public DefaultDispenseItemBehavior dispenserExecute(BiFunction<Level, BlockPos, BasePrimedTNT> function) {
         return new DefaultDispenseItemBehavior() {
