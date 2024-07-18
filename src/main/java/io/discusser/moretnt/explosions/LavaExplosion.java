@@ -45,9 +45,7 @@ public class LavaExplosion extends BaseExplosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         for (BlockPos pos : this.sources) {
             if (this.level instanceof ServerLevel) {
                 level.setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
@@ -58,7 +56,5 @@ public class LavaExplosion extends BaseExplosion {
                 level.setBlockAndUpdate(pos, Fluids.FLOWING_LAVA.defaultFluidState().createLegacyBlock());
             }
         }
-
-        postFinalizeExplosion();
     }
 }

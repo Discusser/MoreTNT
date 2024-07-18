@@ -39,9 +39,7 @@ public class SnowExplosion extends BaseExplosion {
         }
     }
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         for (BlockPos blockPos : this.toBlow) {
             if (this.level instanceof ServerLevel) {
                 BlockState blockState = level.getBlockState(blockPos);
@@ -62,7 +60,5 @@ public class SnowExplosion extends BaseExplosion {
                 this.level.setBlockAndUpdate(blockPos, blockState);
             }
         }
-
-        postFinalizeExplosion();
     }
 }

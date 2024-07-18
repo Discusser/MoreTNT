@@ -30,9 +30,7 @@ public class ShuffleExplosion extends BaseExplosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         ObjectArrayList<BlockPos> toSwap = new ObjectArrayList<>(this.toBlow);
 
         if (this.level instanceof ServerLevel) {
@@ -51,8 +49,5 @@ public class ShuffleExplosion extends BaseExplosion {
                 level.setBlockAndUpdate(pos, randomBlockState);
             }
         }
-
-
-        postFinalizeExplosion();
     }
 }

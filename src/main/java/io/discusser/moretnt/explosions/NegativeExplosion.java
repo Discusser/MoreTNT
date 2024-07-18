@@ -40,9 +40,7 @@ public class NegativeExplosion extends BaseExplosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         this.blocksToPlace = this.blocksToPlace.stream().distinct().toList();
 
         int i = 0;
@@ -64,7 +62,5 @@ public class NegativeExplosion extends BaseExplosion {
                 this.level.getBlockState(blockpos).onBlockExploded(this.level, blockpos, this);
             }
         }
-
-        postFinalizeExplosion();
     }
 }

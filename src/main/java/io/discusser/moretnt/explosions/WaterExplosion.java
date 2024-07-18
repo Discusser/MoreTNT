@@ -45,9 +45,7 @@ public class WaterExplosion extends BaseExplosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         for (BlockPos pos : this.sources) {
             if (this.level instanceof ServerLevel) {
                 this.level.setBlockAndUpdate(pos, Blocks.WATER.defaultBlockState());
@@ -58,7 +56,5 @@ public class WaterExplosion extends BaseExplosion {
                 this.level.setBlockAndUpdate(pos, Fluids.FLOWING_WATER.defaultFluidState().createLegacyBlock());
             }
         }
-
-        postFinalizeExplosion();
     }
 }

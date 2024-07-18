@@ -1,10 +1,9 @@
 package io.discusser.moretnt.network;
 
-import io.discusser.moretnt.objects.entities.BasePrimedTNT;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -32,16 +31,8 @@ public class ClientboundEntityFacingPacket {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        MoreTNTPacketHandler.enqueueToClient(ctx, () -> {
-            Player player = ctx.get().getSender();
-
-            if (player != null) {
-                Entity entity = player.level().getEntity(this.id);
-                if (entity instanceof BasePrimedTNT) {
-                    ((BasePrimedTNT) entity).facing = this.facing;
-                }
-            }
-        });
+        ctx.get().enqueueWork(() ->
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientboundEntityFacingPacketHandler.handle(this, ctx)));
         ctx.get().setPacketHandled(true);
     }
 }

@@ -98,9 +98,7 @@ public class DomeExplosion extends BaseExplosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         for (BlockPos blockPos : this.toBlow) {
             if (this.level instanceof ServerLevel) {
                 BlockState blockState = this.level.getBlockState(blockPos);
@@ -109,7 +107,5 @@ public class DomeExplosion extends BaseExplosion {
                 }
             }
         }
-
-        postFinalizeExplosion();
     }
 }

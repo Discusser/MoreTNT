@@ -174,6 +174,10 @@ public class BaseExplosion extends Explosion {
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
         preFinalizeExplosion(pSpawnParticles, this.soundEvent);
+        onFinalizeExplosion(pSpawnParticles);
         postFinalizeExplosion();
+    }
+
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
     }
 }

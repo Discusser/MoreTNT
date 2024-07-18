@@ -22,9 +22,7 @@ public class KnockbackExplosion extends BaseExplosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean pSpawnParticles) {
-        preFinalizeExplosion(pSpawnParticles, this.soundEvent);
-
+    public void onFinalizeExplosion(boolean pSpawnParticles) {
         float f2 = this.radius * 2.0F;
         Vec3 vec3 = new Vec3(this.x, this.y, this.z);
 
@@ -54,7 +52,5 @@ public class KnockbackExplosion extends BaseExplosion {
                 }
             }
         }
-
-        postFinalizeExplosion();
     }
 }
