@@ -24,6 +24,6 @@ public class ShuffleTNTBlock extends BaseTNTBlock {
         }
 
         return new PrimedShuffleTNT(entityType, level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, size, fire,
-                level.getBlockState(blockPos).getValue(BaseTNTBlock.FACING));
+                this.getFacing(level, blockPos));
     }
 }

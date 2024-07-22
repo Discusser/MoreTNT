@@ -13,6 +13,8 @@ public class MoreTNTItems {
 
     public static final RegistryObject<MoreTNTBaseBlockItem> NEGATIVE_TNT = registerBlockItem("negative_tnt",
             MoreTNTBlocks.NEGATIVE_TNT);
+    public static final RegistryObject<MoreTNTBaseBlockItem> NEGATIVE_TNT_4X = registerBlockItem("negative_tnt_4x",
+            MoreTNTBlocks.NEGATIVE_TNT_4X);
     public static final RegistryObject<MoreTNTBaseBlockItem> SHUFFLE_TNT = registerBlockItem("shuffle_tnt",
             MoreTNTBlocks.SHUFFLE_TNT);
     public static final RegistryObject<MoreTNTBaseBlockItem> SHUFFLE_TNT_4X = registerBlockItem("shuffle_tnt_4x",

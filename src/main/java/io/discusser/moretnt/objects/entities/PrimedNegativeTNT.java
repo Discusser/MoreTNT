@@ -19,6 +19,10 @@ public class PrimedNegativeTNT extends BasePrimedTNT {
         super(MoreTNTEntities.NEGATIVE_TNT.get(), pLevel, pX, pY, pZ, size, fire, facing);
     }
 
+    public PrimedNegativeTNT(EntityType<? extends PrimedTnt> pEntityType, Level pLevel, double pX, double pY, double pZ, float size, boolean fire, Direction facing) {
+        super(pEntityType, pLevel, pX, pY, pZ, size, fire, facing);
+    }
+
     @Override
     public Class<? extends BaseExplosion> getExplosionClass() {
         return NegativeExplosion.class;

@@ -14,6 +14,8 @@ public class MoreTNTEntities {
 
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> NEGATIVE_TNT = registerTNTEntity("negative_tnt",
             EntityType.Builder.<PrimedNegativeTNT>of(PrimedNegativeTNT::new, MobCategory.MISC));
+    public static final RegistryObject<EntityType<? extends BasePrimedTNT>> NEGATIVE_TNT_4X = registerTNTEntity("negative_tnt_4x",
+            EntityType.Builder.<PrimedNegativeTNT>of(PrimedNegativeTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SHUFFLE_TNT = registerTNTEntity("shuffle_tnt",
             EntityType.Builder.<PrimedShuffleTNT>of(PrimedShuffleTNT::new, MobCategory.MISC));
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SHUFFLE_TNT_4X = registerTNTEntity("shuffle_tnt_4x",

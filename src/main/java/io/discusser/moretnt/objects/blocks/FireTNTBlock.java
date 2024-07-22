@@ -13,6 +13,6 @@ public class FireTNTBlock extends BaseTNTBlock {
     @Override
     public BasePrimedTNT createPrimed(Level level, BlockPos blockPos, float size, boolean fire) {
         return new PrimedFireTNT(level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, size, fire,
-                level.getBlockState(blockPos).getValue(BaseTNTBlock.FACING));
+                this.getFacing(level, blockPos));
     }
 }

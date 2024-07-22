@@ -53,6 +53,7 @@ public class MoreTNT {
 
     public void addObjects() {
         objects.add(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT, MoreTNTEntities.NEGATIVE_TNT, MoreTNTItems.NEGATIVE_TNT));
+        objects.add(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT_4X, MoreTNTEntities.NEGATIVE_TNT_4X, MoreTNTItems.NEGATIVE_TNT_4X));
         objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT, MoreTNTEntities.SHUFFLE_TNT, MoreTNTItems.SHUFFLE_TNT));
         objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT_4X, MoreTNTEntities.SHUFFLE_TNT_4X, MoreTNTItems.SHUFFLE_TNT_4X));
         objects.add(new MoreTNTObject(MoreTNTBlocks.KNOCKBACK_TNT, MoreTNTEntities.KNOCKBACK_TNT, MoreTNTItems.KNOCKBACK_TNT));

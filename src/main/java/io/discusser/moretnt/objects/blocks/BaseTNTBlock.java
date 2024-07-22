@@ -3,7 +3,6 @@ package io.discusser.moretnt.objects.blocks;
 import io.discusser.moretnt.network.ClientboundEntityFacingPacket;
 import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -14,13 +13,11 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -103,6 +100,10 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> pBuilder) {
         super.createBlockStateDefinition(pBuilder);
         pBuilder.add(FACING);
+    }
+
+    public Direction getFacing(Level level, BlockPos blockPos) {
+        return level.getBlockState(blockPos).getOptionalValue(BaseTNTBlock.FACING).orElse(BasePrimedTNT.DEFAULT_DIRECTION);
     }
 
     // Override with your own BasePrimedTNT implementation

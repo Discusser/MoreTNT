@@ -15,6 +15,8 @@ public class MoreTNTBlocks {
 
     public static final RegistryObject<NegativeTNTBlock> NEGATIVE_TNT = BLOCKS.register("negative_tnt",
             () -> new NegativeTNTBlock(4.0F, false));
+    public static final RegistryObject<NegativeTNTBlock> NEGATIVE_TNT_4X = BLOCKS.register("negative_tnt_4x",
+            () -> new NegativeTNTBlock(16.0F, false));
     public static final RegistryObject<ShuffleTNTBlock> SHUFFLE_TNT = BLOCKS.register("shuffle_tnt",
             () -> new ShuffleTNTBlock(4.0F, false));
     public static final RegistryObject<ShuffleTNTBlock> SHUFFLE_TNT_4X = BLOCKS.register("shuffle_tnt_4x",

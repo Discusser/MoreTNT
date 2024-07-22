@@ -24,6 +24,6 @@ public class SnowTNTBlock extends BaseTNTBlock {
         }
 
         return new PrimedSnowTNT(entityType, level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, size, fire,
-                level.getBlockState(blockPos).getOptionalValue(BaseTNTBlock.FACING).orElse(BasePrimedTNT.DEFAULT_DIRECTION));
+                this.getFacing(level, blockPos));
     }
 }
