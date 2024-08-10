@@ -3,6 +3,7 @@ package io.discusser.moretnt;
 import com.mojang.logging.LogUtils;
 import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.MoreTNTObject;
+import io.discusser.moretnt.objects.PrimedTNTObject;
 import io.discusser.moretnt.objects.blocks.BaseTNTBlock;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
 import io.discusser.moretnt.objects.registration.*;
@@ -23,15 +24,14 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.function.BiFunction;
 
 @Mod(MoreTNT.MODID)
 public class MoreTNT {
     public static final String MODID = "moretnt";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final List<MoreTNTObject> objects = new ArrayList<>();
+    public static final HashMap<BaseTNTBlock, PrimedTNTObject> blockToPrimedTNTMap = new HashMap<>();
 
     public MoreTNT() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -45,31 +45,22 @@ public class MoreTNT {
 
         modEventBus.addListener(this::commonSetup);
 
-        addObjects();
+        this.addObjects();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     public void addObjects() {
-        objects.add(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT, MoreTNTEntities.NEGATIVE_TNT, MoreTNTItems.NEGATIVE_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT_4X, MoreTNTEntities.NEGATIVE_TNT_4X, MoreTNTItems.NEGATIVE_TNT_4X));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT, MoreTNTEntities.SHUFFLE_TNT, MoreTNTItems.SHUFFLE_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.SHUFFLE_TNT_4X, MoreTNTEntities.SHUFFLE_TNT_4X, MoreTNTItems.SHUFFLE_TNT_4X));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.KNOCKBACK_TNT, MoreTNTEntities.KNOCKBACK_TNT, MoreTNTItems.KNOCKBACK_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.WATER_TNT, MoreTNTEntities.WATER_TNT, MoreTNTItems.WATER_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.LAVA_TNT, MoreTNTEntities.LAVA_TNT, MoreTNTItems.LAVA_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.SNOW_TNT, MoreTNTEntities.SNOW_TNT, MoreTNTItems.SNOW_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.SNOW_TNT_4X, MoreTNTEntities.SNOW_TNT_4X, MoreTNTItems.SNOW_TNT_4X));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.CAT_TNT, MoreTNTEntities.CAT_TNT, MoreTNTItems.CAT_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.DOME_TNT, MoreTNTEntities.DOME_TNT, MoreTNTItems.DOME_TNT));
-        objects.add(new MoreTNTObject(MoreTNTBlocks.FIRE_TNT, MoreTNTEntities.FIRE_TNT, MoreTNTItems.FIRE_TNT));
+        new MoreTNTObjects();
     }
 
     public void commonSetup(FMLCommonSetupEvent event) {
-        for (MoreTNTObject object : objects) {
-            BaseTNTBlock block = object.block().get();
-            DispenserBlock.registerBehavior(object.item().get(),
+        for (MoreTNTObject object : MoreTNTObjects.objects) {
+            blockToPrimedTNTMap.put(object.blockItem().block().get(), object.primedTNTObject());
+
+            BaseTNTBlock block = object.blockItem().block().get();
+            DispenserBlock.registerBehavior(object.blockItem().item().get(),
                     this.dispenserExecute((level, blockPos) -> block.createPrimed(level, blockPos, block.size, block.fire)));
         }
 

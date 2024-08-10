@@ -10,7 +10,6 @@ public class MoreTNTBaseBlockItem extends BlockItem {
     }
 
     public MoreTNTBaseBlockItem(Block block) {
-        this(block,
-                new Item.Properties());
+        this(block, new Item.Properties());
     }
 }

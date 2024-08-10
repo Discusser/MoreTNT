@@ -1,5 +1,6 @@
 package io.discusser.moretnt.objects.blocks;
 
+import io.discusser.moretnt.MoreTNT;
 import io.discusser.moretnt.network.ClientboundEntityFacingPacket;
 import io.discusser.moretnt.network.MoreTNTPacketHandler;
 import io.discusser.moretnt.objects.entities.BasePrimedTNT;
@@ -22,7 +23,7 @@ import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
+public class BaseTNTBlock extends TntBlock implements ITNTBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public float size = 4.0F;
     public boolean fire = true;
@@ -56,7 +57,7 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
         if (!level.isClientSide) {
             BasePrimedTNT tnt = this.createPrimed(level, pos, this.size, this.fire);
             int i = tnt.getFuse();
-            tnt.setFuse((short)(level.random.nextInt(i / 4) + i / 8));
+            tnt.setFuse((short) (level.random.nextInt(i / 4) + i / 8));
             level.addFreshEntity(tnt);
             sendEntityFacingPacket(tnt);
         }
@@ -106,8 +107,14 @@ public abstract class BaseTNTBlock extends TntBlock implements ITNTBlock {
         return level.getBlockState(blockPos).getOptionalValue(BaseTNTBlock.FACING).orElse(BasePrimedTNT.DEFAULT_DIRECTION);
     }
 
-    // Override with your own BasePrimedTNT implementation
-//    public BasePrimedTNT createPrimed(Level level, BlockPos blockPos, float size, boolean fire) {
-//        return new BasePrimedTNT(level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, size, fire);
-//    }
+    public BasePrimedTNT createPrimed(Level level, BlockPos blockPos, float size, boolean fire) {
+        Block block = level.getBlockState(blockPos).getBlock();
+        if (block instanceof BaseTNTBlock) {
+            return new BasePrimedTNT(MoreTNT.blockToPrimedTNTMap.get(block).entityType.get(), (BaseTNTBlock) block, level,
+                    blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D,
+                    size, fire, this.getFacing(level, blockPos));
+        } else {
+            throw new RuntimeException("Tried to create a primed TNT from a block of type '" + block.getClass().getCanonicalName() + "' that does not extend '" + BaseTNTBlock.class.getCanonicalName() + "'");
+        }
+    }
 }

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 0
+    },
+    "facing=south": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 270
+    }
+  }
+}
