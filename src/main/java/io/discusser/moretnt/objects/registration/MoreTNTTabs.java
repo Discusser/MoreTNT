@@ -11,17 +11,16 @@ import net.minecraftforge.registries.RegistryObject;
 public class MoreTNTTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MoreTNT.MODID);
 
+    @SuppressWarnings("unused")
     public static final RegistryObject<CreativeModeTab> ITEMS = TABS.register("items", () -> CreativeModeTab.builder()
             // Set name of tab to display
             .title(Component.translatable("itemGroup.moretnt.items"))
             // Set icon of creative tab
             .icon(() -> new ItemStack(MoreTNTBlocks.NEGATIVE_TNT.block().get()))
             // Add default items to tab
-            .displayItems((params, output) -> {
-                MoreTNTItems.ITEMS.getEntries().forEach(object ->
-                        output.accept(object.get())
-                );
-            })
+            .displayItems((params, output) -> MoreTNTItems.ITEMS.getEntries().forEach(object ->
+                    output.accept(object.get())
+            ))
             .build()
     );
 }

@@ -42,6 +42,7 @@ public class MoreTNTBlocks {
     public static final MoreTNTBlockItem<BaseTNTBlock> FIRE_TNT = registerBlockWithItem("fire_tnt",
             () -> new BaseTNTBlock(4.0F, true));
 
+    @SuppressWarnings("unused")
     public static final MoreTNTBlockItem<Block> COMPRESSED_SAND = registerBlockWithItem("compressed_sand",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.SAND)
                     .strength(2.0F).requiresCorrectToolForDrops()));

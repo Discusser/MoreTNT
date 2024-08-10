@@ -4,7 +4,11 @@ import io.discusser.moretnt.objects.MoreTNTObject;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class MoreTNTObjects {
+    public MoreTNTObjects() {
+    }
+
     public static final ArrayList<MoreTNTObject> objects = new ArrayList<>();
 
     public static final MoreTNTObject NEGATIVE_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.NEGATIVE_TNT, PrimedTNTObjects.NEGATIVE_TNT));

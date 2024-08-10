@@ -45,14 +45,8 @@ public class MoreTNT {
 
         modEventBus.addListener(this::commonSetup);
 
-        this.addObjects();
-
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    public void addObjects() {
-        new MoreTNTObjects();
     }
 
     public void commonSetup(FMLCommonSetupEvent event) {
