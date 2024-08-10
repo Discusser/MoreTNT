@@ -23,6 +23,9 @@ public class MoreTNTObjects {
     public static final MoreTNTObject KNOCKBACK_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.KNOCKBACK_TNT, PrimedTNTObjects.KNOCKBACK_TNT));
     public static final MoreTNTObject WATER_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.WATER_TNT, PrimedTNTObjects.WATER_TNT));
     public static final MoreTNTObject LAVA_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.LAVA_TNT, PrimedTNTObjects.LAVA_TNT));
+    public static final MoreTNTObject COBBLESTONE_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.COBBLESTONE_TNT, PrimedTNTObjects.COBBLESTONE_TNT));
+    public static final MoreTNTObject STONE_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.STONE_TNT, PrimedTNTObjects.STONE_TNT));
+    public static final MoreTNTObject OBSIDIAN_TNT = addObject(new MoreTNTObject(MoreTNTBlocks.OBSIDIAN_TNT, PrimedTNTObjects.OBSIDIAN_TNT));
 
     public static MoreTNTObject addObject(MoreTNTObject object) {
         objects.add(object);

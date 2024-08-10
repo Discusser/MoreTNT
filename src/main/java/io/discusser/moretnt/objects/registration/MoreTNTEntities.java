@@ -19,6 +19,9 @@ public class MoreTNTEntities {
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> KNOCKBACK_TNT = registerTNTEntity("knockback_tnt");
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> WATER_TNT = registerTNTEntity("water_tnt");
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> LAVA_TNT = registerTNTEntity("lava_tnt");
+    public static final RegistryObject<EntityType<? extends BasePrimedTNT>> COBBLESTONE_TNT = registerTNTEntity("cobblestone_tnt");
+    public static final RegistryObject<EntityType<? extends BasePrimedTNT>> STONE_TNT = registerTNTEntity("stone_tnt");
+    public static final RegistryObject<EntityType<? extends BasePrimedTNT>> OBSIDIAN_TNT = registerTNTEntity("obsidian_tnt");
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SNOW_TNT = registerTNTEntity("snow_tnt");
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> SNOW_TNT_4X = registerTNTEntity("snow_tnt_4x");
     public static final RegistryObject<EntityType<? extends BasePrimedTNT>> CAT_TNT = registerTNTEntity("cat_tnt");
