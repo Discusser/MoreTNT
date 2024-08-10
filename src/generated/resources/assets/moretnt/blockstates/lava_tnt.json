@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=east,unstable=false": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=east,unstable=true": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=north,unstable=false": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=north,unstable=true": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=south,unstable=false": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=south,unstable=true": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=west,unstable=false": {
+      "model": "moretnt:block/lava_tnt"
+    },
+    "facing=west,unstable=true": {
+      "model": "moretnt:block/lava_tnt"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "moretnt:block/tnt_4x",
+  "textures": {
+    "bottom": "moretnt:block/negative_tnt_bottom",
+    "overlay_top": "moretnt:block/overlay/4x_overlay",
+    "particle": "moretnt:block/negative_tnt_side",
+    "side": "moretnt:block/negative_tnt_side",
+    "top": "moretnt:block/negative_tnt_top"
+  }
+}

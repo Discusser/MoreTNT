@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "moretnt:lava_tnt"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "W",
+    "T"
+  ],
+  "result": {
+    "item": "moretnt:obsidian_tnt"
+  },
+  "show_notification": true
+}

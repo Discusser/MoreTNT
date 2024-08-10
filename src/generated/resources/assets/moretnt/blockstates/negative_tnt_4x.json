@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,unstable=false": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 90
+    },
+    "facing=east,unstable=true": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 90
+    },
+    "facing=north,unstable=false": {
+      "model": "moretnt:block/negative_tnt_4x"
+    },
+    "facing=north,unstable=true": {
+      "model": "moretnt:block/negative_tnt_4x"
+    },
+    "facing=south,unstable=false": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 180
+    },
+    "facing=south,unstable=true": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 180
+    },
+    "facing=west,unstable=false": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 270
+    },
+    "facing=west,unstable=true": {
+      "model": "moretnt:block/negative_tnt_4x",
+      "y": 270
+    }
+  }
+}
