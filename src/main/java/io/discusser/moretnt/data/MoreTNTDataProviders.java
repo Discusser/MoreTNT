@@ -62,11 +62,11 @@ public class MoreTNTDataProviders {
         }
 
         public ShapedRecipeBuilder packNine(ItemLike output, ItemLike input) {
-            return shapedRecipeBuilder(output, input, 9).pattern("AAA").pattern("AAA").pattern("AAA").define('A', input);
+            return shapedRecipeBuilder(output, input, 1).pattern("AAA").pattern("AAA").pattern("AAA").define('A', input);
         }
 
         public ShapedRecipeBuilder packFour(ItemLike output, ItemLike input) {
-            return shapedRecipeBuilder(output, input, 4).pattern("AA").pattern("AA").define('A', input);
+            return shapedRecipeBuilder(output, input, 1).pattern("AA").pattern("AA").define('A', input);
         }
 
         public ShapelessRecipeBuilder unpackNine(ItemLike output, ItemLike input) {
@@ -94,7 +94,7 @@ public class MoreTNTDataProviders {
         @Override
         protected void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
             packUnpackNine(MoreTNTBlocks.COMPRESSED_SAND.block().get(), Items.SAND, pWriter);
-            tntSurround(MoreTNTBlocks.DOME_TNT, Items.GLASS).save(pWriter);
+            tntSurround(MoreTNTBlocks.DOME_TNT, MoreTNTBlocks.COMPRESSED_SAND.item().get()).save(pWriter);
             tntSurround(MoreTNTBlocks.FIRE_TNT, Items.FIRE_CHARGE).save(pWriter);
             tntSurround(MoreTNTBlocks.KNOCKBACK_TNT, Items.FEATHER).save(pWriter);
             tntSurround(MoreTNTBlocks.LAVA_TNT, Items.LAVA_BUCKET).save(pWriter);

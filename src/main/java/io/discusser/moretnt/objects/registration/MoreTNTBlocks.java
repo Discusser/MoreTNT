@@ -32,9 +32,9 @@ public class MoreTNTBlocks {
     public static final MoreTNTBlockItem<BaseTNTBlock> LAVA_TNT = registerBlockWithItem("lava_tnt",
             () -> new BaseTNTBlock(2.0F, false));
     public static final MoreTNTBlockItem<BaseTNTBlock> COBBLESTONE_TNT = registerBlockWithItem("cobblestone_tnt",
-            () -> new BaseTNTBlock(2.0F, false));
+            () -> new BaseTNTBlock(4.0F, false));
     public static final MoreTNTBlockItem<BaseTNTBlock> STONE_TNT = registerBlockWithItem("stone_tnt",
-            () -> new BaseTNTBlock(2.0F, false));
+            () -> new BaseTNTBlock(4.0F, false));
     public static final MoreTNTBlockItem<BaseTNTBlock> OBSIDIAN_TNT = registerBlockWithItem("obsidian_tnt",
             () -> new BaseTNTBlock(2.0F, false));
     public static final MoreTNTBlockItem<BaseTNTBlock> SNOW_TNT = registerBlockWithItem("snow_tnt",

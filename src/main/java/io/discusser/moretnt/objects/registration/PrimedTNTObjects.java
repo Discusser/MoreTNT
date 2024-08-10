@@ -13,7 +13,7 @@ public class PrimedTNTObjects {
     public static final PrimedTNTObject SNOW_TNT = new PrimedTNTObject(MoreTNTEntities.SNOW_TNT, SnowExplosion::new, SoundEvents.SNOW_BREAK);
     public static final PrimedTNTObject SNOW_TNT_4X = new PrimedTNTObject(MoreTNTEntities.SNOW_TNT_4X, SnowExplosion::new, SoundEvents.SNOW_BREAK);
     public static final PrimedTNTObject CAT_TNT = new PrimedTNTObject(MoreTNTEntities.CAT_TNT, CatExplosion::new, SoundEvents.CAT_PURREOW);
-    public static final PrimedTNTObject DOME_TNT = new PrimedTNTObject(MoreTNTEntities.DOME_TNT, DomeExplosion::new, SoundEvents.GLASS_PLACE);
+    public static final PrimedTNTObject DOME_TNT = new PrimedTNTObject(MoreTNTEntities.DOME_TNT, (pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction, soundEvent) -> new SphereExplosion(pLevel, pSource, pDamageSource, pDamageCalculator, pToBlowX, pToBlowY, pToBlowZ, pRadius, pFire, pBlockInteraction, soundEvent, Blocks.GLASS, false), SoundEvents.GLASS_PLACE);
     public static final PrimedTNTObject FIRE_TNT = new PrimedTNTObject(MoreTNTEntities.FIRE_TNT, FireExplosion::new, SoundEvents.FIRECHARGE_USE);
     public static final PrimedTNTObject KNOCKBACK_TNT = new PrimedTNTObject(MoreTNTEntities.KNOCKBACK_TNT, KnockbackExplosion::new, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
     public static final PrimedTNTObject WATER_TNT = new PrimedTNTObject(MoreTNTEntities.WATER_TNT, WaterExplosion::new, SoundEvents.BUCKET_EMPTY);
