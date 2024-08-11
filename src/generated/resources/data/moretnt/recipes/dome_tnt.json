@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "minecraft:glass"
+      "item": "moretnt:compressed_sand"
     },
     "T": {
       "item": "minecraft:tnt"
