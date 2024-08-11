@@ -24,4 +24,4 @@ run
 # Files from Forge MDK
 forge*changelog.txt
 
-/src/generated/.cache/
+/src/generated/resources/.cache/
