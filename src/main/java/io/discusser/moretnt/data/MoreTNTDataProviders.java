@@ -5,23 +5,50 @@ import io.discusser.moretnt.objects.MoreTNTBlockItem;
 import io.discusser.moretnt.objects.blocks.BaseTNTBlock;
 import io.discusser.moretnt.objects.registration.MoreTNTBlocks;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class MoreTNTDataProviders {
+    public static class BlockTags extends BlockTagsProvider {
+        public BlockTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, modId, existingFileHelper);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.@NotNull Provider pProvider) {
+            this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL).add(MoreTNTBlocks.COMPRESSED_SAND.block().get());
+        }
+    }
+
+    public static class LootTables extends LootTableProvider {
+        public LootTables(PackOutput pOutput) {
+            super(pOutput, Set.of(), List.of(
+                    new LootTableProvider.SubProviderEntry(MoreTNTLootTables::new, LootContextParamSets.BLOCK)
+            ));
+        }
+    }
+
     public static class Recipes extends RecipeProvider {
 
         public Recipes(PackOutput pOutput) {
