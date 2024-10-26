@@ -1,0 +1,26 @@
+package io.github.discusser.moretnt.objects.registration;
+
+import io.github.discusser.moretnt.MoreTNT;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+public class MoreTNTTabs {
+    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MoreTNT.MODID);
+
+    @SuppressWarnings("unused")
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ITEMS = TABS.register("items", () -> CreativeModeTab.builder()
+            // Set name of tab to display
+            .title(Component.translatable("itemGroup.moretnt.items"))
+            // Set icon of creative tab
+            .icon(() -> new ItemStack(MoreTNTBlocks.NEGATIVE_TNT.block().get()))
+            // Add default items to tab
+            .displayItems((params, output) -> MoreTNTItems.ITEMS.getEntries().forEach(object ->
+                    output.accept(object.get())
+            ))
+            .build()
+    );
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "moretnt:compressed_sand"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ATA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "moretnt:dome_tnt"
+  }
+}

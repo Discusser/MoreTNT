@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "W L",
+    "WTL",
+    "W L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "moretnt:cobblestone_tnt"
+  }
+}

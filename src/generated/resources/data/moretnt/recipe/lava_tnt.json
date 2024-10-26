@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:lava_bucket"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ATA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "moretnt:lava_tnt"
+  }
+}

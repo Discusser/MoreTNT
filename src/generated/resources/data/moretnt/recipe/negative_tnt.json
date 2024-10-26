@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ATA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "moretnt:negative_tnt"
+  }
+}
