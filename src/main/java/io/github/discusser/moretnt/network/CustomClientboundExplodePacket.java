@@ -60,9 +60,9 @@ public class CustomClientboundExplodePacket implements CustomPacketPayload {
     }
 
     public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeFloat((float) this.x);
-        pBuffer.writeFloat((float) this.y);
-        pBuffer.writeFloat((float) this.z);
+        pBuffer.writeDouble(this.x);
+        pBuffer.writeDouble(this.y);
+        pBuffer.writeDouble(this.z);
         pBuffer.writeFloat(this.power);
         pBuffer.writeCollection(this.toBlow, (buf, pos) -> {
             int x = pos.getX() - Mth.floor(this.x);

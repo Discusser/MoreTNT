@@ -13,6 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -62,7 +63,7 @@ public class BasePrimedTNT extends PrimedTnt {
             for (ServerPlayer serverplayer : level.players()) {
                 if (serverplayer.distanceToSqr(pX, pY, pZ) < 4096.0D) {
                     CustomClientboundExplodePacket packet = new CustomClientboundExplodePacket(pX, pY, pZ, this.size,
-                            explosion.getToBlow(), explosion.getHitPlayers().get(serverplayer), explosion.soundEvent.getLocation());
+                            explosion.getToBlow(), explosion.getHitPlayers().getOrDefault(serverplayer, new Vec3(0, 0, 0)), explosion.soundEvent.getLocation());
                     PacketDistributor.sendToPlayer(serverplayer, packet);
                 }
             }
