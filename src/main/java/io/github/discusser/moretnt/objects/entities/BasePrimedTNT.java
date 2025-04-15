@@ -21,17 +21,17 @@ public class BasePrimedTNT extends PrimedTnt {
     public static final float DEFAULT_SIZE = 4.0F;
     public static final boolean DEFAULT_FIRE = true;
     public static final Direction DEFAULT_DIRECTION = Direction.NORTH;
-    public Direction facing = DEFAULT_DIRECTION;
-    public float size = DEFAULT_SIZE;
-    public boolean fire = DEFAULT_FIRE;
+    public Direction facing;
+    public float size;
+    public boolean fire;
     public BaseTNTBlock block;
 
     public BasePrimedTNT(EntityType<? extends PrimedTnt> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        this(pEntityType, MoreTNT.entityTypeToBlockMap.get(pEntityType), pLevel, 0, 0, 0, MoreTNT.entityTypeToBlockMap.get(pEntityType).size, MoreTNT.entityTypeToBlockMap.get(pEntityType).fire, DEFAULT_DIRECTION);
     }
 
     public BasePrimedTNT(EntityType<? extends PrimedTnt> entityType, BaseTNTBlock block, Level pLevel, double pX, double pY, double pZ, float size, boolean fire, Direction facing) {
-        this(entityType, pLevel);
+        super(entityType, pLevel);
         this.setPos(pX, pY, pZ);
         double d0 = pLevel.random.nextDouble() * (double) ((float) Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(d0) * 0.02D, 0.2F, -Math.cos(d0) * 0.02D);
@@ -51,6 +51,8 @@ public class BasePrimedTNT extends PrimedTnt {
         double pY = this.getY(0.0625);
         double pZ = this.getZ();
         BaseExplosion explosion = this.createExplosion(pX, pY, pZ);
+        if (explosion == null)
+            return;
 
         if (EventHooks.onExplosionStart(this.level(), explosion)) {
             return;
@@ -71,6 +73,8 @@ public class BasePrimedTNT extends PrimedTnt {
     }
 
     public BaseExplosion createExplosion(double x, double y, double z) {
+        if (this.block == null)
+            return null;
         PrimedTNTObject primedTNTObject = MoreTNT.blockToPrimedTNTMap.get(this.block);
         return primedTNTObject.explosionFactory.create(this.level(), null, null,
                 null, x, y, z, this.size, this.fire, Explosion.BlockInteraction.DESTROY, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, primedTNTObject.sound);

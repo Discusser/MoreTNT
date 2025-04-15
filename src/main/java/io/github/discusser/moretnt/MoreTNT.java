@@ -11,6 +11,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -30,6 +31,7 @@ public class MoreTNT {
     public static final String MODID = "moretnt";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final HashMap<BaseTNTBlock, PrimedTNTObject> blockToPrimedTNTMap = new HashMap<>();
+    public static final HashMap<EntityType<? extends BasePrimedTNT>, BaseTNTBlock> entityTypeToBlockMap = new HashMap<>();
 
     public MoreTNT(IEventBus modEventBus, ModContainer modContainer) {
         // Register all mod objects
@@ -50,6 +52,7 @@ public class MoreTNT {
     public void commonSetup(FMLCommonSetupEvent event) {
         for (MoreTNTObject object : MoreTNTObjects.objects) {
             blockToPrimedTNTMap.put(object.blockItem().block().get(), object.primedTNTObject());
+            entityTypeToBlockMap.put(object.primedTNTObject().entityType.get(), object.blockItem().block().get());
 
             BaseTNTBlock block = object.blockItem().block().get();
             DispenserBlock.registerBehavior(object.blockItem().item().get(),
