@@ -7,7 +7,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -39,14 +42,14 @@ public class BaseTNTBlock extends TntBlock implements ITNTBlock {
     }
 
     @Override
-    public void onCaughtFire(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @Nullable Direction face,
-                             @Nullable LivingEntity igniter) {
+    public void onCaughtFire(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos,
+            @Nullable Direction face, @Nullable LivingEntity igniter) {
         if (!world.isClientSide) {
             BasePrimedTNT tnt = this.createPrimed(world, pos, this.size, this.fire);
             world.addFreshEntity(tnt);
             sendEntityFacingPacket(tnt);
-            world.playSound(null, tnt.getX(), tnt.getY(), tnt.getZ(), SoundEvents.TNT_PRIMED,
-                    SoundSource.BLOCKS, 1.0F, 1.0F);
+            world.playSound(null, tnt.getX(), tnt.getY(), tnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F,
+                    1.0F);
             world.gameEvent(igniter, GameEvent.PRIME_FUSE, pos);
         }
     }
@@ -80,7 +83,8 @@ public class BaseTNTBlock extends TntBlock implements ITNTBlock {
     }
 
     @Override
-    public @NotNull BlockState rotate(BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos, Rotation direction) {
+    public @NotNull BlockState rotate(BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos,
+            Rotation direction) {
         return state.setValue(FACING, direction.rotate(state.getValue(FACING)));
     }
 
@@ -101,17 +105,39 @@ public class BaseTNTBlock extends TntBlock implements ITNTBlock {
     }
 
     public Direction getFacing(Level level, BlockPos blockPos) {
-        return level.getBlockState(blockPos).getOptionalValue(BaseTNTBlock.FACING).orElse(BasePrimedTNT.DEFAULT_DIRECTION);
+        return level.getBlockState(blockPos).getOptionalValue(BaseTNTBlock.FACING)
+                .orElse(BasePrimedTNT.DEFAULT_DIRECTION);
     }
 
     public BasePrimedTNT createPrimed(Level level, BlockPos blockPos, float size, boolean fire) {
         Block block = level.getBlockState(blockPos).getBlock();
         if (block instanceof BaseTNTBlock) {
-            return new BasePrimedTNT(MoreTNT.blockToPrimedTNTMap.get(block).entityType.get(), (BaseTNTBlock) block, level,
-                    blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D,
-                    size, fire, this.getFacing(level, blockPos));
+            return createPrimed(MoreTNT.blockToPrimedTNTMap.get(block).entityType.get(), (BaseTNTBlock) block, level,
+                    blockPos, size, fire);
         } else {
-            throw new RuntimeException("Tried to create a primed TNT from a block of type '" + block.getClass().getCanonicalName() + "' that does not extend '" + BaseTNTBlock.class.getCanonicalName() + "'");
+            throw new RuntimeException(
+                    "Tried to create a primed TNT from a block of type '" + block.getClass().getCanonicalName() +
+                            "' that does not extend '" + BaseTNTBlock.class.getCanonicalName() + "'");
         }
+    }
+
+
+    public BasePrimedTNT createPrimedFromStack(Level level, ItemStack stack, BlockPos blockPos, float size,
+            boolean fire) {
+        Block block = Block.byItem(stack.getItem());
+        if (block instanceof BaseTNTBlock) {
+            return createPrimed(MoreTNT.blockToPrimedTNTMap.get(block).entityType.get(), (BaseTNTBlock) block, level,
+                    blockPos, size, fire);
+        } else {
+            throw new RuntimeException("Tried to create a primed TNT from an item of type '" +
+                    stack.getItem().getClass().getCanonicalName() + "' that does not extend '" +
+                    BaseTNTBlock.class.getCanonicalName() + "'");
+        }
+    }
+
+    private BasePrimedTNT createPrimed(EntityType<? extends PrimedTnt> type, BaseTNTBlock block, Level level,
+            BlockPos blockPos, float size, boolean fire) {
+        return new BasePrimedTNT(type, block, level, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D,
+                size, fire, this.getFacing(level, blockPos));
     }
 }
