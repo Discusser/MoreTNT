@@ -28,6 +28,7 @@ import java.util.HashMap;
 @Mod(MoreTNT.MODID)
 public class MoreTNT {
     public static final String MODID = "moretnt";
+    public static final String MOD_VERSION = "1.1.3";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final HashMap<BaseTNTBlock, PrimedTNTObject> blockToPrimedTNTMap = new HashMap<>();
     public static final HashMap<EntityType<? extends BasePrimedTNT>, BaseTNTBlock> entityTypeToBlockMap
